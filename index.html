@@ -1,155 +1,104 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security Check 💖</title>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        body {
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #ffd1e8, #ffb6d9, #ffcce7);
-        }
-        
-        /* Falling emojis */
-        .emoji {
-            position: fixed;
-            top: -10%;
-            font-size: 24px;
-            animation: fall linear infinite;
-            user-select: none;
-            pointer-events: none;
-        }
-        
-        @keyframes fall {
-            0% {
-                transform: translateY(-10vh) rotate(0deg);
-                opacity: 0;
-            }
-            
-            10% {
-                opacity: 1;
-            }
-            
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        /* Login box */
-        .box {
-            width: 340px;
-            background: rgba(255, 255, 255, .25);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, .4);
-            border-radius: 25px;
-            padding: 35px;
-            text-align: center;
-            box-shadow: 0 10px 35px rgba(255, 105, 180, .25);
-        }
-        
-        h1 {
-            color: #ff4d94;
-            margin-bottom: 10px;
-        }
-        
-        p {
-            color: #a84d74;
-            margin-bottom: 20px;
-        }
-        
-        input {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 15px;
-            outline: none;
-            background: white;
-            font-size: 16px;
-            text-align: center;
-        }
-        
-        button {
-            width: 100%;
-            padding: 13px;
-            margin-top: 18px;
-            border: none;
-            border-radius: 15px;
-            background: #ff69b4;
-            color: white;
-            font-size: 17px;
-            cursor: pointer;
-            transition: .3s;
-        }
-        
-        button:hover {
-            background: #ff4d94;
-            transform: scale(1.03);
-        }
-        
-        #error {
-            margin-top: 15px;
-            color: #ff004c;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Special Invitation 💗</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #ffe4ef, #f5a9ca);
+      font-family: Georgia, serif;
+      color: #a43c6d;
+      padding: 20px;
+    }
+
+    .security {
+      width: min(100%, 360px);
+      padding: 32px 24px;
+      text-align: center;
+      background: #fff8fb;
+      border: 2px solid #f6b8d1;
+      border-radius: 24px;
+      box-shadow: 0 12px 35px #b64b7b30;
+    }
+
+    .heart { font-size: 48px; }
+
+    h1 { font-size: 27px; }
+
+    p { line-height: 1.6; }
+
+    input, button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 12px;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    input {
+      border: 1px solid #e9a1bf;
+      background: white;
+      color: #8f315e;
+    }
+
+    button {
+      border: none;
+      background: #e879a9;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #error {
+      color: #bd245b;
+      min-height: 20px;
+      font-size: 14px;
+    }
+  </style>
 </head>
-
 <body>
-    
-    <div class="box">
-        <h1>🔒 Locked 🔒</h1>
-        <p>Enter the password to continue 💖</p>
-        
-        <input type="password" id="password" placeholder="Password" onkeypress="if(event.key==='Enter') checkPassword()">
-        
-        <button onclick="checkPassword()">Unlock </button>
-        
-        <div id="error"></div>
-    </div>
-    
-    <script>
-        // Password
-        function checkPassword() {
-            let pass = document.getElementById("password").value;
-            
-            if (pass === "lox") {
-                window.location.href = "indexSecurity.html";
-            } else {
-                document.getElementById("error").innerHTML = "❌ Wrong password!";
-            }
-        }
-        
-        // Falling emojis
-        const emojis = ["💖", "🌸", "💕", "🩷", "💗", "🎀", "🌷"];
-        
-        for (let i = 0; i < 40; i++) {
-            let e = document.createElement("div");
-            e.className = "emoji";
-            e.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-            
-            e.style.left = Math.random() * 100 + "vw";
-            e.style.animationDuration = (Math.random() * 6 + 6) + "s";
-            e.style.animationDelay = Math.random() * 6 + "s";
-            e.style.fontSize = (18 + Math.random() * 18) + "px";
-            
-            document.body.appendChild(e);
-        }
-    </script>
-    
-</body>
+  <main class="security">
+    <div class="heart">🎀</div>
+    <h1>A little surprise for you</h1>
+    <p>Enter the secret password to open your invitation. 💌</p>
 
+    <form id="loginForm">
+      <input
+        id="password"
+        type="password"
+        placeholder="Enter the secret password"
+        autocomplete="off"
+        required
+      >
+      <button type="submit">Unlock my surprise 💗</button>
+      <p id="error" role="alert"></p>
+    </form>
+  </main>
+
+  <script>
+    // Change this to your chosen password.
+    const secretPassword = "alviso";
+
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const entered = document.getElementById("password").value;
+
+      if (entered === secretPassword) {
+        window.location.href = "book.html";
+      } else {
+        document.getElementById("error").textContent =
+          "Oops! That's not the right password. Try again 💕";
+      }
+    });
+  </script>
+</body>
 </html>
