@@ -1,108 +1,81 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffd9e8">
-
-  <title>For Sofia, My Liyag 🎀</title>
-
+  <title>For My Liyag 💗</title>
   <link rel="stylesheet" href="book.css">
-
-  <!-- EmailJS library must load before book.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="book.js" defer></script>
 </head>
 
 <body>
-  <main class="page">
-    <p class="top-note">
-      A little invitation for Sofia 💗
-    </p>
+  <div class="floating-hearts" aria-hidden="true"></div>
+
+  <main class="invitation">
+    <p class="top-label">A LITTLE INVITATION FOR YOU</p>
 
     <div class="book-scene">
-      <section class="book" id="book">
-
-        <!-- INSIDE OF THE BOOK -->
+      <div class="book" id="book">
         <div class="book-pages">
-          <div class="inside-heading">
-            <span class="tiny-heart">♡</span>
-            <p>You're invited, Babu!</p>
+          <div class="inside-page">
+            <p class="inside-small">YOU ARE INVITED TO</p>
+            <h2>Alviso Family Reunion</h2>
+            <p class="inside-heart">♡</p>
+            <p class="inside-note">
+              A little invitation made with love, just for you.
+            </p>
+            <p class="inside-signature">— Carlo 💗</p>
           </div>
+        </div>
 
-          <div class="poster-frame">
+        <div class="cover" id="cover">
+          <div class="cover-decoration">♡</div>
+          <p class="cover-small">A SPECIAL INVITATION</p>
+          <h1>My Liyag</h1>
+
+          <div class="cover-image">
             <img
-              class="invitation-poster"
               src="img/christmas-invitation.jpg"
-              alt="Alviso Christmas Party invitation poster"
+              alt="Our invitation"
             >
           </div>
 
-          <p class="inside-footer">
-            
-          </p>
+          <p class="cover-caption">Made with love, for you 🎀</p>
+          <div class="cover-ribbon"></div>
         </div>
-
-        <!-- FRONT COVER -->
-        <div class="cover" id="cover">
-
-          <div class="cover-decoration" aria-hidden="true">
-            <span class="ribbon ribbon-vertical"></span>
-            <span class="ribbon ribbon-horizontal"></span>
-            <span class="bow-loop bow-left"></span>
-            <span class="bow-loop bow-right"></span>
-            <span class="bow-knot"></span>
-          </div>
-
-          <div class="cover-content">
-            <p class="cover-kicker">
-              A special question for
-            </p>
-
-            <h1>My Liyag</h1>
-
-            <p class="cover-question">
-              Would you like to come with me to the
-            </p>
-
-            <h2>Alviso Family Reunion?</h2>
-
-            <div class="answer-area">
-              <button
-                id="yesButton"
-                class="answer yes-button"
-                type="button"
-              >
-                YES! 💗
-              </button>
-
-              <button
-                id="noButton"
-                class="answer no-button"
-                type="button"
-              >
-                NO
-              </button>
-            </div>
-
-            <p id="hint" class="hint" aria-live="polite">
-              Choose wisely, Babu 🎀
-            </p>
-          </div>
-        </div>
-
-      </section>
+      </div>
     </div>
 
-    <p class="bottom-note">
-      Made with love by Carlo, just for you ♡
-    </p>
+    <section class="question-area">
+      <h2>Will you say yes, Babu? 💗</h2>
+      <p class="question-subtitle">
+        I made this little surprise just for you.
+      </p>
 
-    <!-- BACKGROUND MUSIC -->
-    <audio id="backgroundMusic" preload="auto" loop>
+      <div class="answer-area">
+        <button class="answer yes-button" id="yesButton" type="button">
+          YES 💗
+        </button>
+
+        <button class="answer no-button" id="noButton" type="button">
+          NO 🥺
+        </button>
+      </div>
+
+      <p id="hint" role="status" aria-live="polite">
+        Choose your answer, Liyag. 💌
+      </p>
+    </section>
+
+    <audio id="backgroundMusic" loop preload="auto">
       <source src="musik/love.mp3" type="audio/mpeg">
     </audio>
   </main>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+  <script src="book.js" defer></script>
 </body>
 </html>
+```
