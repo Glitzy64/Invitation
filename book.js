@@ -1,99 +1,150 @@
-const book = document.getElementById("book");
-const yesButton = document.getElementById("yesButton");
-const noButton = document.getElementById("noButton");
-const hint = document.getElementById("hint");
-const music = document.getElementById("backgroundMusic");
+```javascript
+(() => {
+  const book = document.getElementById("book");
+  const yesButton = document.getElementById("yesButton");
+  const noButton = document.getElementById("noButton");
+  const hint = document.getElementById("hint");
+  const music = document.getElementById("backgroundMusic");
 
-let noClicks = 0;
-let opened = false;
+  // Stop safely if the required page elements are missing.
+  if (!book || !yesButton || !noButton || !hint) {
+    console.error("A required invitation element is missing.");
+    return;
+  }
 
-const EMAILJS_PUBLIC_KEY = "BFjMowDGsf1l_Eb";
-const EMAILJS_SERVICE_ID = "service_h7frpgp";
-const EMAILJS_TEMPLATE_ID = "template_x8ibc85";
+  // EmailJS configuration.
+  const EMAILJS_PUBLIC_KEY = "BFjMowDGsf1l_Eb";
+  const EMAILJS_SERVICE_ID = "service_h7frpgp";
+  const EMAILJS_TEMPLATE_ID = "template_x8ibc85";
 
-if (window.emailjs) {
-emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-}
+  let noClicks = 0;
+  let opened = false;
+  let emailJSReady = false;
 
-const messages = [
-"Are you sure, Babu? 🥺",
-"Think about it one more time, Liyag 🎀",
-"The YES button is getting bigger! 💗",
-"Come on, Sofiaaa! 🥹💕",
-"I think YES is your answer now! 💌"
-];
+  const messages = [
+    "Are you sure, Babu? 🥺",
+    "Think about it one more time, Liyag 🎀",
+    "The YES button is getting bigger! 💗",
+    "Come on, Sofiaaa! 🥹💕",
+    "I think YES is your answer now! 💌",
+    "Babu naman ohhh 😭💗",
+    "That NO button is looking suspicious... 👀",
+    "I'll keep asking nicely, Liyag. 🎀",
+    "Panget mo ka-bonding! Charot. 🥹",
+    "One little YES would make me smile. 💕"
+  ];
 
-// Start at the original button size.
-yesButton.style.width = "auto";
-yesButton.style.minWidth = "100px";
-yesButton.style.padding = "12px 20px";
-yesButton.style.fontSize = "1rem";
-yesButton.style.transform = "none";
-yesButton.style.transition =
-"width 0.25s ease, padding 0.25s ease, font-size 0.25s ease";
+  // Initialize EmailJS if its library loaded.
+  if (window.emailjs) {
+    try {
+      window.emailjs.init({
+        publicKey: EMAILJS_PUBLIC_KEY
+      });
+      emailJSReady = true;
+    } catch (error) {
+      console.error("EmailJS initialization failed:", error);
+    }
+  }
 
-noButton.style.transform = "none";
+  // Start with the intended button sizes.
+  yesButton.style.width = "112px";
+  yesButton.style.minWidth = "112px";
+  yesButton.style.padding = "12px 20px";
+  yesButton.style.fontSize = "16px";
 
-noButton.addEventListener("click", function () {
-if (opened) return;
+  noButton.addEventListener("click", () => {
+    if (opened) return;
 
-noClicks++;
+    noClicks++;
 
-// Increase the actual button dimensions on every click.
-const size = Math.min(1 + noClicks * 0.3, 3);
-yesButton.style.width = "${100 * size}px";
-yesButton.style.padding = "${12 * size}px ${20 * size}px";
-yesButton.style.fontSize = "${size}rem";
+    // Grow YES with each NO click, up to a reasonable maximum.
+    const scale = Math.min(1 + noClicks * 0.22, 2.8);
+    yesButton.style.width = `${112 * scale}px`;
+    yesButton.style.minWidth = `${112 * scale}px`;
+    yesButton.style.padding =
+      `${12 * scale}px ${20 * scale}px`;
+    yesButton.style.fontSize = `${16 * scale}px`;
 
-// Shrink the NO button.
-const noSize = Math.max(1 - noClicks * 0.08, 0.4);
-noButton.style.transform = "scale(${noSize})";
+    // Gradually shrink NO without making it impossible to click.
+    const noScale = Math.max(1 - noClicks * 0.06, 0.55);
+    noButton.style.transform = `scale(${noScale})`;
 
-// Loop through all five messages forever.
-hint.textContent = messages[(noClicks - 1) % messages.length];
-});
+    // Cycle through all messages repeatedly.
+    hint.textContent = messages[(noClicks - 1) % messages.length];
+  });
 
-yesButton.addEventListener("click", async function () {
-if (opened) return;
+  yesButton.addEventListener("click", async () => {
+    if (opened) return;
 
-opened = true;
-yesButton.disabled = true;
-noButton.disabled = true;
+    opened = true;
+    yesButton.disabled = true;
+    noButton.disabled = true;
 
-hint.textContent = "Yay! Open your invitation, Babu! 💗";
-book.classList.add("open");
+    hint.textContent = "Yay! Opening your invitation, Babu! 💗";
+    book.classList.add("open");
 
-if (music) {
-try {
-music.volume = 0.55;
-await music.play();
-} catch (error) {
-console.warn("Music could not play:", error);
-}
-}
+    // Browsers generally allow audio after a user taps YES.
+    if (music) {
+      try {
+        music.volume = 0.55;
+        await music.play();
+      } catch (error) {
+        console.warn("Music playback failed:", error);
+      }
+    }
 
-if (!window.emailjs) {
-console.error("EmailJS did not load.");
-hint.textContent = "Your invitation is open! 💗";
-return;
-}
+    // Send the notification if EmailJS is available.
+    if (!emailJSReady || !window.emailjs) {
+      hint.textContent =
+        "Your invitation is open! Email notification isn't available right now. 💌";
+      return;
+    }
 
-try {
-await emailjs.send(
-EMAILJS_SERVICE_ID,
-EMAILJS_TEMPLATE_ID,
-{
-subject: "Sofia pressed YES! 💗",
-message: "Sofia pressed YES on the Alviso Family Reunion invitation!",
-name: "Sofia",
-time: new Date().toLocaleString()
-}
-);
+    try {
+      await window.emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          subject: "Sofia pressed YES! 💗",
+          message:
+            "Sofia pressed YES on Carlo's Alviso Family Reunion invitation!",
+          name: "Sofia",
+          time: new Date().toLocaleString()
+        }
+      );
 
-hint.textContent = "Yay! Carlo has been notified! 💗";
+      hint.textContent =
+        "Yay! Your invitation is open, and Carlo has been notified! 💗";
+    } catch (error) {
+      console.error("Email notification failed:", error);
 
-} catch (error) {
-console.error("Email notification failed:", error);
-hint.textContent = "Invitation opened! Email notification failed. 💌";
-}
-});
+      hint.textContent =
+        "The book is open! But the email notification couldn't be sent. 💌";
+    }
+  });
+
+  // Falling hearts on the invitation page.
+  const heartContainer = document.querySelector(".floating-hearts");
+  const heartEmojis = ["💗", "💕", "💖", "🎀", "🌸"];
+
+  if (heartContainer) {
+    function createHeart() {
+      const heart = document.createElement("span");
+
+      heart.textContent =
+        heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.fontSize = `${14 + Math.random() * 16}px`;
+      heart.style.animationDuration = `${5 + Math.random() * 5}s`;
+
+      heartContainer.appendChild(heart);
+
+      window.setTimeout(() => heart.remove(), 10000);
+    }
+
+    createHeart();
+    window.setInterval(createHeart, 600);
+  }
+})();
+```
