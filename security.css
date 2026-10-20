@@ -1,0 +1,113 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Pacifico&display=swap');
+
+:root {
+  --pink: #f7a9c4;
+  --deep-pink: #d94f86;
+  --ink: #71344d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background: linear-gradient(
+    135deg,
+    #ffe8f1,
+    #f8b8d0 55%,
+    #fbdbe8
+  );
+}
+
+.security-card {
+  width: min(100%, 390px);
+  padding: 34px 28px 26px;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 18px 50px rgba(166, 63, 105, 0.18);
+}
+
+.bow {
+  font-size: 3rem;
+}
+
+.eyebrow {
+  margin: 16px 0 4px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+h1 {
+  margin: 0;
+  font: 2.5rem 'Pacifico', cursive;
+  color: var(--deep-pink);
+}
+
+.description {
+  line-height: 1.6;
+  margin: 14px 0 22px;
+}
+
+label {
+  display: block;
+  text-align: left;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #efb3ca;
+  border-radius: 13px;
+  font: inherit;
+  color: var(--ink);
+  background: #fffafd;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--deep-pink);
+  box-shadow: 0 0 0 3px #f9d3e2;
+}
+
+button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 13px 16px;
+  border: 0;
+  border-radius: 13px;
+  background: var(--deep-pink);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #b63b6b;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+.error {
+  min-height: 1.2em;
+  color: #b42355;
+  font-size: 0.88rem;
+}
+
+.small-note {
+  margin: 18px 0 0;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
