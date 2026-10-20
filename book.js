@@ -8,15 +8,25 @@ const music = document.getElementById("backgroundMusic");
 let noClicks = 0;
 let opened = false;
 
-noButton.addEventListener("click", function() {
+// EmailJS configuration
+const EMAILJS_PUBLIC_KEY = "BFjMowDGsf1l_Eb";
+const EMAILJS_SERVICE_ID = "service_h7frpgp";
+const EMAILJS_TEMPLATE_ID = "template_x8ibc85";
+
+// Initialize EmailJS
+if (window.emailjs) {
+  emailjs.init({
+    publicKey: EMAILJS_PUBLIC_KEY
+  });
+}
+
+// NO button: YES grows and NO shrinks
+noButton.addEventListener("click", function () {
   if (opened) return;
 
   noClicks++;
 
-  // YES grows with every NO click.
   const yesScale = Math.min(1 + noClicks * 0.45, 4.6);
-
-  // NO becomes smaller with every click.
   const noScale = Math.max(1 - noClicks * 0.09, 0.35);
 
   yesButton.style.transform = `scale(${yesScale})`;
@@ -34,7 +44,8 @@ noButton.addEventListener("click", function() {
     messages[Math.min(noClicks - 1, messages.length - 1)];
 });
 
-yesButton.addEventListener("click", async function() {
+// YES button: send email, play music, and open the book
+yesButton.addEventListener("click", async function () {
   if (opened) return;
 
   opened = true;
@@ -44,15 +55,42 @@ yesButton.addEventListener("click", async function() {
 
   hint.textContent = "Yay! Open your invitation, Babu! 💗";
 
-  // Browsers may require a user click before music can play.
+  // Attempt to send the email notification
+  const emailPromise = (async function () {
+    if (!window.emailjs) {
+      throw new Error("EmailJS did not load.");
+    }
+
+    return emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        subject: "Sofia pressed YES! 💗",
+        message:
+          "Sofia pressed YES on the Alviso Family Reunion invitation!",
+        name: "Sofia",
+        time: new Date().toLocaleString()
+      }
+    );
+  })();
+
+  // Play background music
   if (music) {
     try {
       music.volume = 0.55;
       await music.play();
     } catch (error) {
-      // The book still opens if music is missing or blocked.
+      console.warn("Music could not play:", error);
     }
   }
 
+  // Open the book even if the email fails
   book.classList.add("open");
+
+  try {
+    await emailPromise;
+    console.info("Email notification sent successfully!");
+  } catch (error) {
+    console.error("Email notification failed:", error);
+  }
 });
