@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question 💖</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    background:linear-gradient(135deg,#ffd6e7,#ffc2dc,#ffe6f3);
+}
+
+/* Falling emojis */
+.emoji{
+    position:fixed;
+    top:-10%;
+    pointer-events:none;
+    user-select:none;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-10vh) rotate(0deg);
+        opacity:0;
+    }
+    10%{
+        opacity:1;
+    }
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+.card{
+    width:420px;
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    background:rgba(255,255,255,.28);
+    backdrop-filter:blur(15px);
+    box-shadow:0 15px 35px rgba(255,105,180,.25);
+}
+
+h1{
+    color:#ff4f9a;
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+p{
+    color:#a84c72;
+    margin-bottom:15px;
+}
+
+/* GIF */
+.question-gif{
+    width:180px;
+    max-width:100%;
+    display:block;
+    margin:15px auto 25px;
+    border-radius:15px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    align-items:center;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    border-radius:15px;
+    padding:14px 28px;
+    font-size:20px;
+    transition:.3s;
+}
+
+.yes-button{
+    background:#ff69b4;
+    color:white;
+}
+
+.yes-button:hover{
+    background:#ff4f9a;
+}
+
+.no-button{
+    background:white;
+    color:#ff4f9a;
+}
+
+.no-button:hover{
+    background:#ffe5f1;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Do you wanna know something? 💖</h1>
+    <p>I know you do... 🌸</p>
+
+    <!-- Your GIF -->
+    <img src="aw.gif" alt="Cute GIF" class="question-gif">
+
+    <div class="buttons">
+        <button class="yes-button" onclick="handleYesClick()">Yes 💕</button>
+        <button class="no-button" onclick="handleNoClick()">No 🥺</button>
+    </div>
+</div>
+
+<!-- Your existing JavaScript -->
+<script src="scirpt.js"></script>
+
+<!-- Falling emojis -->
+<script>
+const emojis = ["💖","💕","🌸","🩷","🎀","🌷"];
+
+for(let i=0;i<45;i++){
+    const e=document.createElement("div");
+    e.className="emoji";
+    e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+
+    e.style.left=Math.random()*100+"vw";
+    e.style.fontSize=(18+Math.random()*18)+"px";
+    e.style.animationDuration=(6+Math.random()*5)+"s";
+    e.style.animationDelay=Math.random()*6+"s";
+
+    document.body.appendChild(e);
+}
+</script>
+
+</body>
+</html>
