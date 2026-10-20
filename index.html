@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Check 💖</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffd1e8, #ffb6d9, #ffcce7);
+        }
+        
+        /* Falling emojis */
+        .emoji {
+            position: fixed;
+            top: -10%;
+            font-size: 24px;
+            animation: fall linear infinite;
+            user-select: none;
+            pointer-events: none;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            
+            10% {
+                opacity: 1;
+            }
+            
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Login box */
+        .box {
+            width: 340px;
+            background: rgba(255, 255, 255, .25);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, .4);
+            border-radius: 25px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(255, 105, 180, .25);
+        }
+        
+        h1 {
+            color: #ff4d94;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            color: #a84d74;
+            margin-bottom: 20px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 15px;
+            outline: none;
+            background: white;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 18px;
+            border: none;
+            border-radius: 15px;
+            background: #ff69b4;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+            transition: .3s;
+        }
+        
+        button:hover {
+            background: #ff4d94;
+            transform: scale(1.03);
+        }
+        
+        #error {
+            margin-top: 15px;
+            color: #ff004c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="box">
+        <h1>🔒 Locked 🔒</h1>
+        <p>Enter the password to continue 💖</p>
+        
+        <input type="password" id="password" placeholder="Password" onkeypress="if(event.key==='Enter') checkPassword()">
+        
+        <button onclick="checkPassword()">Unlock </button>
+        
+        <div id="error"></div>
+    </div>
+    
+    <script>
+        // Password
+        function checkPassword() {
+            let pass = document.getElementById("password").value;
+            
+            if (pass === "lox") {
+                window.location.href = "indexSecurity.html";
+            } else {
+                document.getElementById("error").innerHTML = "❌ Wrong password!";
+            }
+        }
+        
+        // Falling emojis
+        const emojis = ["💖", "🌸", "💕", "🩷", "💗", "🎀", "🌷"];
+        
+        for (let i = 0; i < 40; i++) {
+            let e = document.createElement("div");
+            e.className = "emoji";
+            e.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            e.style.left = Math.random() * 100 + "vw";
+            e.style.animationDuration = (Math.random() * 6 + 6) + "s";
+            e.style.animationDelay = Math.random() * 6 + "s";
+            e.style.fontSize = (18 + Math.random() * 18) + "px";
+            
+            document.body.appendChild(e);
+        }
+    </script>
+    
+</body>
+
+</html>
