@@ -271,9 +271,13 @@ background 0.2s ease;
 touch-action: manipulation;
 }
 
-.answer:focus-visible {
-outline: 3px solid white;
-outline-offset: 3px;
+.answer-area {
+  overflow: visible;
+}
+
+.yes-button {
+  flex-shrink: 0;
+  box-sizing: content-box;
 }
 
 .yes-button {
