@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffd9e8">
+
+  <title>For Sofia, My Liyag 🎀</title>
+
+  <link rel="stylesheet" href="book.css">
+  <script src="book.js" defer></script>
+</head>
+
+<body>
+  <main class="page">
+    <p class="top-note">
+      A little invitation for Sofia 💗
+    </p>
+
+    <div class="book-scene">
+      <section class="book" id="book">
+
+        <!-- INSIDE OF THE BOOK -->
+        <div class="book-pages">
+          <div class="inside-heading">
+            <span class="tiny-heart">♡</span>
+            <p>You're invited, Babu!</p>
+          </div>
+
+          <div class="poster-frame">
+            <img
+              class="invitation-poster"
+              src="img/christmas-invitation.jpg"
+              alt="Alviso Christmas Party invitation poster"
+            >
+          </div>
+
+          <p class="inside-footer">
+            With love, Carlo 💌
+          </p>
+        </div>
+
+        <!-- FRONT COVER -->
+        <div class="cover" id="cover">
+
+          <div class="cover-decoration" aria-hidden="true">
+            <span class="ribbon ribbon-vertical"></span>
+            <span class="ribbon ribbon-horizontal"></span>
+            <span class="bow-loop bow-left"></span>
+            <span class="bow-loop bow-right"></span>
+            <span class="bow-knot"></span>
+          </div>
+
+          <div class="cover-content">
+            <p class="cover-kicker">
+              A special question for
+            </p>
+
+            <h1>My Liyag</h1>
+
+            <p class="cover-question">
+              Would you like to come with me to the
+            </p>
+
+            <h2>Alviso Family Reunion?</h2>
+
+            <div class="answer-area">
+              <button
+                id="yesButton"
+                class="answer yes-button"
+                type="button"
+              >
+                YES! 💗
+              </button>
+
+              <button
+                id="noButton"
+                class="answer no-button"
+                type="button"
+              >
+                NO
+              </button>
+            </div>
+
+            <p id="hint" class="hint" aria-live="polite">
+              Choose wisely, Babu 🎀
+            </p>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <p class="bottom-note">
+      Made with love by Carlo, just for you ♡
+    </p>
+
+    <!-- OPTIONAL BACKGROUND MUSIC -->
+    <audio id="backgroundMusic" preload="auto" loop>
+      <source src="musik/love.mp3" type="audio/mpeg">
+    </audio>
+  </main>
+</body>
+</html>
