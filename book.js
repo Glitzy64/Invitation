@@ -11,14 +11,10 @@ const EMAILJS_PUBLIC_KEY = "BFjMowDGsf1l_Eb";
 const EMAILJS_SERVICE_ID = "service_h7frpgp";
 const EMAILJS_TEMPLATE_ID = "template_x8ibc85";
 
-// Initialize EmailJS
 if (window.emailjs) {
-emailjs.init({
-publicKey: EMAILJS_PUBLIC_KEY
-});
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 }
 
-// Messages repeat forever
 const messages = [
 "Are you sure, Babu? 🥺",
 "Think about it one more time, Liyag 🎀",
@@ -27,36 +23,46 @@ const messages = [
 "I think YES is your answer now! 💌"
 ];
 
-// NO button: YES grows, NO shrinks, messages loop
+// Start at the original button size.
+yesButton.style.width = "auto";
+yesButton.style.minWidth = "100px";
+yesButton.style.padding = "12px 20px";
+yesButton.style.fontSize = "1rem";
+yesButton.style.transform = "none";
+yesButton.style.transition =
+"width 0.25s ease, padding 0.25s ease, font-size 0.25s ease";
+
+noButton.style.transform = "none";
+
 noButton.addEventListener("click", function () {
 if (opened) return;
 
 noClicks++;
 
-const yesScale = Math.min(1 + noClicks * 0.3, 3);
-const noScale = Math.max(1 - noClicks * 0.08, 0.4);
+// Increase the actual button dimensions on every click.
+const size = Math.min(1 + noClicks * 0.3, 3);
+yesButton.style.width = "${100 * size}px";
+yesButton.style.padding = "${12 * size}px ${20 * size}px";
+yesButton.style.fontSize = "${size}rem";
 
-yesButton.style.transform = "scale(${yesScale})";
-noButton.style.transform = "scale(${noScale})";
+// Shrink the NO button.
+const noSize = Math.max(1 - noClicks * 0.08, 0.4);
+noButton.style.transform = "scale(${noSize})";
 
+// Loop through all five messages forever.
 hint.textContent = messages[(noClicks - 1) % messages.length];
 });
 
-// YES button: open the book and play music
 yesButton.addEventListener("click", async function () {
 if (opened) return;
 
 opened = true;
-
 yesButton.disabled = true;
 noButton.disabled = true;
 
 hint.textContent = "Yay! Open your invitation, Babu! 💗";
-
-// Open the book immediately
 book.classList.add("open");
 
-// Play background music
 if (music) {
 try {
 music.volume = 0.55;
@@ -66,7 +72,6 @@ console.warn("Music could not play:", error);
 }
 }
 
-// Email notification is independent of the book animation
 if (!window.emailjs) {
 console.error("EmailJS did not load.");
 hint.textContent = "Your invitation is open! 💗";
@@ -86,7 +91,6 @@ time: new Date().toLocaleString()
 );
 
 hint.textContent = "Yay! Carlo has been notified! 💗";
-console.info("Email notification sent successfully.");
 
 } catch (error) {
 console.error("Email notification failed:", error);
