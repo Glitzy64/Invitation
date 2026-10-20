@@ -7,17 +7,18 @@ const music = document.getElementById("backgroundMusic");
 let noClicks = 0;
 let opened = false;
 
-// EmailJS configuration
 const EMAILJS_PUBLIC_KEY = "BFjMowDGsf1l_Eb";
 const EMAILJS_SERVICE_ID = "service_h7frpgp";
 const EMAILJS_TEMPLATE_ID = "template_x8ibc85";
 
 // Initialize EmailJS
 if (window.emailjs) {
-emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+emailjs.init({
+publicKey: EMAILJS_PUBLIC_KEY
+});
 }
 
-// Messages repeat in a loop
+// Messages repeat forever
 const messages = [
 "Are you sure, Babu? 🥺",
 "Think about it one more time, Liyag 🎀",
@@ -26,41 +27,36 @@ const messages = [
 "I think YES is your answer now! 💌"
 ];
 
-// NO button: grow YES, shrink NO, loop messages
+// NO button: YES grows, NO shrinks, messages loop
 noButton.addEventListener("click", function () {
 if (opened) return;
 
 noClicks++;
 
-const yesScale = Math.min(1 + noClicks * 0.35, 3.5);
+const yesScale = Math.min(1 + noClicks * 0.3, 3);
 const noScale = Math.max(1 - noClicks * 0.08, 0.4);
 
-yesButton.style.setProperty("transform", "scale(${yesScale})", "important");
-yesButton.style.setProperty("transform-origin", "center", "important");
-yesButton.style.setProperty("position", "relative", "important");
-yesButton.style.setProperty("z-index", "20", "important");
+yesButton.style.transform = "scale(${yesScale})";
+noButton.style.transform = "scale(${noScale})";
 
-noButton.style.setProperty("transform", "scale(${noScale})", "important");
-noButton.style.setProperty("transform-origin", "center", "important");
-
-// Loop through all messages forever
 hint.textContent = messages[(noClicks - 1) % messages.length];
 });
 
-// YES button: open the book, play music, send email
+// YES button: open the book and play music
 yesButton.addEventListener("click", async function () {
 if (opened) return;
 
 opened = true;
+
 yesButton.disabled = true;
 noButton.disabled = true;
 
 hint.textContent = "Yay! Open your invitation, Babu! 💗";
 
-// Open the book
+// Open the book immediately
 book.classList.add("open");
 
-// Play music
+// Play background music
 if (music) {
 try {
 music.volume = 0.55;
@@ -70,9 +66,10 @@ console.warn("Music could not play:", error);
 }
 }
 
-// Send email notification
+// Email notification is independent of the book animation
 if (!window.emailjs) {
-hint.textContent = "The invitation opened, but EmailJS didn't load. 💌";
+console.error("EmailJS did not load.");
+hint.textContent = "Your invitation is open! 💗";
 return;
 }
 
@@ -88,7 +85,8 @@ time: new Date().toLocaleString()
 }
 );
 
-hint.textContent = "Invitation opened! Carlo has been notified! 💗";
+hint.textContent = "Yay! Carlo has been notified! 💗";
+console.info("Email notification sent successfully.");
 
 } catch (error) {
 console.error("Email notification failed:", error);
