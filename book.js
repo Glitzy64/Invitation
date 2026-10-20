@@ -90,7 +90,9 @@ yesButton.addEventListener("click", async function () {
   try {
     await emailPromise;
     console.info("Email notification sent successfully!");
-  } catch (error) {
+    } catch (error) {
     console.error("Email notification failed:", error);
+
+    hint.textContent =
+      "Email failed: " + (error.text || error.message || "Unknown error");
   }
-});
